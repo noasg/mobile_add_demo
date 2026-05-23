@@ -17,6 +17,8 @@ export class Game {
     this.anim = new AnimationManager(app);
 
     this.analytics = new AnalyticsManager();
+
+    this.isGameActive = true;
   }
 
   async init() {
@@ -32,6 +34,7 @@ export class Game {
   setupUI() {
     this.closeBtn = createCloseButton(() => {
       this.analytics.track("close_clicked");
+      this.isGameActive = false;
       console.log("close clicked");
     });
 
@@ -56,7 +59,12 @@ export class Game {
   showScreen2() {
     this.clearStage();
 
-    const screen2 = new Screen2();
+    const screen2 = new Screen2(
+      this.app,
+      this.anim,
+      this.analytics,
+      () => this.isGameActive,
+    );
 
     this.app.stage.addChild(screen2);
     this.app.stage.addChild(this.uiLayer);

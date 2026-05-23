@@ -7,7 +7,6 @@
       "spriteSourceSize": { "x": 4, "y": 4, "w": 56, "h": 56 },
       "sourceSize": { "w": 64, "h": 64 }
     },
-
     "wallFinal": {
       "frame": { "x": 0, "y": 0, "w": 540, "h": 838 },
       "rotated": false,
@@ -15,7 +14,6 @@
       "spriteSourceSize": { "x": 0, "y": 2, "w": 540, "h": 838 },
       "sourceSize": { "w": 540, "h": 840 }
     },
-
     "startBtn": {
       "frame": { "x": 542, "y": 0, "w": 420, "h": 97 },
       "rotated": false,
@@ -23,7 +21,6 @@
       "spriteSourceSize": { "x": 5, "y": 11, "w": 420, "h": 97 },
       "sourceSize": { "w": 430, "h": 120 }
     },
-
     "bere": {
       "frame": { "x": 964, "y": 0, "w": 37, "h": 109 },
       "rotated": false,
@@ -31,7 +28,6 @@
       "spriteSourceSize": { "x": 5, "y": 1, "w": 37, "h": 109 },
       "sourceSize": { "w": 45, "h": 111 }
     },
-
     "roman": {
       "frame": { "x": 655, "y": 99, "w": 133, "h": 250 },
       "rotated": false,
@@ -39,31 +35,23 @@
       "spriteSourceSize": { "x": 10, "y": 8, "w": 133, "h": 250 },
       "sourceSize": { "w": 160, "h": 260 }
     },
-
     "dac1": {
       "frame": { "x": 790, "y": 99, "w": 123, "h": 243 },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": { "x": 46, "y": 53, "w": 123, "h": 243 },
-      "sourceSize": { "w": 200, "h": 300 }
+      "spriteSourceSize": { "x": 16, "y": 53, "w": 123, "h": 243 },
+      "sourceSize": { "w": 140, "h": 300 }
     },
-
     "dac2": {
       "frame": { "x": 542, "y": 99, "w": 111, "h": 287 },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": { "x": 48, "y": 9, "w": 111, "h": 287 },
-      "sourceSize": { "w": 200, "h": 300 }
+      "spriteSourceSize": { "x": 18, "y": 9, "w": 111, "h": 287 },
+      "sourceSize": { "w": 140, "h": 300 }
     }
   },
-
   "meta": {
     "image": "atlas.png",
-    "format": "RGBA8888",
-    "size": {
-      "w": 1024,
-      "h": 1024
-    },
-    "scale": "1"
+    "scale": 1
   }
 }
