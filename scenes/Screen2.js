@@ -82,6 +82,22 @@ export class Screen2 extends PIXI.Container {
     });
 
     // -------------------
+    // SCORE
+    // -------------------
+    this.score = 0;
+
+    this.scoreText = new PIXI.Text(`Shared beers: ${this.score}`, {
+      fill: 0xff4500,
+      fontSize: 30,
+      fontWeight: "bold",
+    });
+
+    this.scoreText.x = 40;
+    this.scoreText.y = 40;
+
+    this.uiLayer.addChild(this.scoreText);
+
+    // -------------------
     // GAME CONTROLLER
     // -------------------
     this.game = new RomanBeerController(
@@ -92,7 +108,11 @@ export class Screen2 extends PIXI.Container {
       (caught) => {
         console.log("cycle ended:", caught);
 
-        // ✅ start delay instead of setTimeout
+        if (caught) {
+          this.score++;
+          this.scoreText.text = `Shared beers: ${this.score}`;
+        }
+
         this.nextCycleDelay = 800;
       },
     );
