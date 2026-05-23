@@ -1,10 +1,14 @@
 import { AnimationManager } from "./utils/AnimationManager.js";
 import { AnalyticsManager } from "./utils/AnalyticsManager.js";
+import { SoundManager } from "./utils/SoundManager.js";
+
 import { createCloseButton } from "./utils/createCloseButton.js";
 import { timerCloseButton } from "./utils/timerCloseButton.js";
 import { timerCloseBtn } from "./utils/constants.js";
+
 import { Screen1 } from "./scenes/Screen1.js";
 import { Screen2 } from "./scenes/Screen2.js";
+
 import { ASSETS } from "./utils/constants.js";
 
 export class Game {
@@ -18,11 +22,18 @@ export class Game {
 
     this.analytics = new AnalyticsManager();
 
+    this.sound = new SoundManager();
+
     this.isGameActive = true;
   }
 
   async init() {
     await PIXI.Assets.load([ASSETS.atlas, ASSETS.images.screen1Bg]);
+
+    await this.sound.load("ambient", "assets/sounds/ambient_repeat.mp3", {
+      loop: true,
+      volume: 0.05,
+    });
 
     this.analytics.start();
 
@@ -34,7 +45,11 @@ export class Game {
   setupUI() {
     this.closeBtn = createCloseButton(() => {
       this.analytics.track("close_clicked");
+
+      this.sound.stopAll();
+
       this.isGameActive = false;
+
       console.log("close clicked");
     });
 
@@ -46,8 +61,12 @@ export class Game {
   showScreen1() {
     this.clearStage();
 
-    const screen1 = new Screen1(this.app, this.anim, this.analytics, () =>
-      this.showScreen2(),
+    const screen1 = new Screen1(
+      this.app,
+      this.anim,
+      this.analytics,
+      this.sound,
+      () => this.showScreen2(),
     );
 
     this.app.stage.addChild(screen1);

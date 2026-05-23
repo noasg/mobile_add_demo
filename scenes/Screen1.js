@@ -2,13 +2,15 @@ import { appWidth, appHeight } from "../utils/constants.js";
 import { ASSETS } from "../utils/constants.js";
 
 export class Screen1 extends PIXI.Container {
-  constructor(app, anim, analytics, onStart) {
+  constructor(app, anim, analytics, sound, onStart) {
     super();
 
     this.app = app;
     this.anim = anim;
     this.onStart = onStart;
     this.analytics = analytics;
+    this.sound = sound;
+
     this.init();
   }
 
@@ -35,9 +37,14 @@ export class Screen1 extends PIXI.Container {
       max: 1.0,
     });
 
-    startBtn.on("pointerdown", () => {
+    startBtn.on("pointertap", async () => {
       this.analytics.track("start_clicked");
+
+      // play FIRST while still inside user gesture
+      await this.sound.play("ambient");
+
       this.onStart();
+
       console.log("start button pressed");
     });
 
