@@ -8,7 +8,7 @@ const app = createApp();
 
 document.getElementById("game").appendChild(app.view);
 
-const game = new Game(app);
+const game = new game(app);
 
 game.init();
 
