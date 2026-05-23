@@ -32,7 +32,7 @@ export class Game {
 
     await this.sound.load("ambient", "assets/sounds/ambient_repeat.mp3", {
       loop: true,
-      volume: 0.05,
+      volume: 0.3,
     });
 
     this.analytics.start();
