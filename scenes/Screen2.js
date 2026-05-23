@@ -1,5 +1,6 @@
 import { appWidth, appHeight } from "../utils/constants.js";
 import { DragController } from "../utils/DragController.js";
+import { ASSETS } from "../utils/constants.js";
 
 export class Screen2 extends PIXI.Container {
   constructor() {
@@ -23,7 +24,7 @@ export class Screen2 extends PIXI.Container {
     // -------------------
     // ROMAN
     // -------------------
-    const roman = PIXI.Sprite.from("roman");
+    const roman = PIXI.Sprite.from(ASSETS.sprites.roman);
 
     roman.x = appWidth / 2;
     roman.y = 130;
@@ -33,7 +34,7 @@ export class Screen2 extends PIXI.Container {
     // -------------------
     // WALL
     // -------------------
-    const wall = PIXI.Sprite.from("wallFinal");
+    const wall = PIXI.Sprite.from(ASSETS.sprites.wallFinal);
 
     wall.width = appWidth;
     wall.scale.y = wall.scale.x;
@@ -48,10 +49,10 @@ export class Screen2 extends PIXI.Container {
     // -------------------
     const dacContainer = new PIXI.Container();
 
-    const dac1 = PIXI.Sprite.from("dac1");
+    const dac1 = PIXI.Sprite.from(ASSETS.sprites.dac1);
     dac1.anchor.set(0.5);
 
-    const dac2 = PIXI.Sprite.from("dac2");
+    const dac2 = PIXI.Sprite.from(ASSETS.sprites.dac2);
     dac2.anchor.set(0.5);
     dac2.visible = false;
 

@@ -1,5 +1,29 @@
 {
   "frames": {
+    "closeBtn": {
+      "frame": { "x": 915, "y": 111, "w": 56, "h": 56 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 4, "y": 4, "w": 56, "h": 56 },
+      "sourceSize": { "w": 64, "h": 64 }
+    },
+
+    "wallFinal": {
+      "frame": { "x": 0, "y": 0, "w": 540, "h": 838 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 0, "y": 2, "w": 540, "h": 838 },
+      "sourceSize": { "w": 540, "h": 840 }
+    },
+
+    "startBtn": {
+      "frame": { "x": 542, "y": 0, "w": 420, "h": 97 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 5, "y": 11, "w": 420, "h": 97 },
+      "sourceSize": { "w": 430, "h": 120 }
+    },
+
     "bere": {
       "frame": { "x": 964, "y": 0, "w": 37, "h": 109 },
       "rotated": false,
@@ -30,38 +54,16 @@
       "trimmed": true,
       "spriteSourceSize": { "x": 48, "y": 9, "w": 111, "h": 287 },
       "sourceSize": { "w": 200, "h": 300 }
-    },
-
-    "startBtn": {
-      "frame": { "x": 542, "y": 0, "w": 420, "h": 97 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 5, "y": 11, "w": 420, "h": 97 },
-      "sourceSize": { "w": 430, "h": 120 }
-    },
-
-    "wallFinal": {
-      "frame": { "x": 0, "y": 0, "w": 540, "h": 838 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 2, "w": 540, "h": 838 },
-      "sourceSize": { "w": 540, "h": 840 }
     }
   },
 
   "meta": {
-    "app": "https://www.codeandweb.com/texturepacker",
-    "version": "1.0",
     "image": "atlas.png",
     "format": "RGBA8888",
-
     "size": {
       "w": 1024,
       "h": 1024
     },
-
-    "scale": "1",
-
-    "smartupdate": "$TexturePacker:SmartUpdate:00000000000000000000000000000000$"
+    "scale": "1"
   }
 }
