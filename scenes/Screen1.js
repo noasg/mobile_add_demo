@@ -14,7 +14,12 @@ export class Screen1 extends PIXI.Container {
     this.init();
   }
 
+  /**
+   * Creates and initializes
+   * all visual elements for Screen 1.
+   */
   init() {
+    // Create background sprite
     const bg = PIXI.Sprite.from(ASSETS.images.screen1Bg);
 
     bg.width = appWidth;
@@ -22,6 +27,7 @@ export class Screen1 extends PIXI.Container {
 
     this.addChild(bg);
 
+    // Create start button sprite
     const startBtn = PIXI.Sprite.from(ASSETS.sprites.startBtn);
 
     startBtn.anchor.set(0.5);
@@ -32,17 +38,19 @@ export class Screen1 extends PIXI.Container {
     startBtn.eventMode = "static";
     startBtn.cursor = "pointer";
 
+    //start button animation
     this.anim.pulse(startBtn, {
       min: 0.86,
       max: 1.0,
     });
 
     startBtn.on("pointertap", async () => {
+      // Track analytics event
       this.analytics.track("start_clicked");
 
-      // play FIRST while still inside user gesture
       await this.sound.play("ambient");
 
+      // Move to next screen
       this.onStart();
 
       console.log("start button pressed");

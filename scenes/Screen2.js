@@ -10,29 +10,34 @@ export class Screen2 extends PIXI.Container {
     this.app = app;
     this.anim = anim;
     this.analytics = analytics;
+
+    //flag used to stop roman+beer+dacian animations -> after users taps the close button
     this.isGameActiveFn = isGameActiveFn;
 
-    // ✅ ticker delay state
     this.nextCycleDelay = 0;
 
     this.init();
   }
 
+  /**
+   * Creates and initializes
+   * all gameplay elements for Screen 2.
+   */
   init() {
-    // -------------------
-    // LAYERS
-    // -------------------
+    // Layer for roman/beer animations
     this.romanLayer = new PIXI.Container();
+
+    // Layer for wall + bg
     this.worldLayer = new PIXI.Container();
+
+    // layer for dacian charcter at bottom + counter for beers
     this.uiLayer = new PIXI.Container();
 
     this.addChild(this.romanLayer);
     this.addChild(this.worldLayer);
     this.addChild(this.uiLayer);
 
-    // -------------------
-    // BACKGROUND
-    // -------------------
+    //bg
     const bg = new PIXI.Graphics();
     bg.beginFill(0x87ceeb);
     bg.drawRect(0, 0, appWidth, appHeight);
@@ -40,9 +45,7 @@ export class Screen2 extends PIXI.Container {
 
     this.worldLayer.addChild(bg);
 
-    // -------------------
-    // WALL
-    // -------------------
+    //adding wall
     const wall = PIXI.Sprite.from(ASSETS.sprites.wallFinal);
 
     wall.width = appWidth;
@@ -53,9 +56,7 @@ export class Screen2 extends PIXI.Container {
 
     this.worldLayer.addChild(wall);
 
-    // -------------------
-    // DAC CONTAINER
-    // -------------------
+    // Container holding DAC character sprites
     const dacContainer = new PIXI.Container();
 
     const dac1 = PIXI.Sprite.from(ASSETS.sprites.dac1);
@@ -73,17 +74,13 @@ export class Screen2 extends PIXI.Container {
 
     this.uiLayer.addChild(dacContainer);
 
-    // -------------------
-    // DRAG
-    // -------------------
+    // Enable horizontal drag movement for DAC character
     this.drag = new DragController(this.app, dacContainer, {
       minX: dacContainer.width / 2,
       maxX: appWidth - dacContainer.width / 2,
     });
 
-    // -------------------
-    // SCORE
-    // -------------------
+    //beer counter
     this.score = 0;
 
     this.scoreText = new PIXI.Text(`Shared beers: ${this.score}`, {
@@ -97,9 +94,7 @@ export class Screen2 extends PIXI.Container {
 
     this.uiLayer.addChild(this.scoreText);
 
-    // -------------------
-    // GAME CONTROLLER
-    // -------------------
+    // Main gameplay logic controller
     this.game = new RomanBeerController(
       this.app,
       this,
@@ -117,20 +112,27 @@ export class Screen2 extends PIXI.Container {
       },
     );
 
+    // Start first gameplay cycle
     this.game.startCycle();
 
-    // -------------------
-    // TICKER LOOP (REPLACES setTimeout)
-    // -------------------
+    // Main update loop for Screen 2, used to trigger new cycles in RomanBeerController
     this.app.ticker.add(this.update, this);
 
     console.log("showing screen 2");
   }
 
+  /**
+   * Runs every frame.
+   * Handles cycle timing and updates.
+   */
   update() {
+    // Stop updates if game is inactive
     if (!this.isGameActiveFn()) return;
+
+    // Safety check
     if (!this.game) return;
 
+    // Handle delay countdown
     if (this.nextCycleDelay > 0) {
       this.nextCycleDelay -= this.app.ticker.deltaMS;
 
@@ -140,8 +142,11 @@ export class Screen2 extends PIXI.Container {
     }
   }
 
+  /**
+   * Cleans up ticker listeners
+   * before destroying the scene.
+   */
   destroy(options) {
-    // cleanup ticker to avoid ghost updates
     this.app.ticker.remove(this.update, this);
 
     super.destroy(options);

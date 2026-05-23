@@ -16,14 +16,15 @@ export class RomanBeerController {
     this.setup();
   }
 
+  /**
+   * Creates and initializes
+   * all controller objects.
+   */
   setup() {
-    // -------------------
-    // ROMAN
-    // -------------------
     this.roman = PIXI.Sprite.from(ASSETS.sprites.roman);
     this.roman.anchor?.set?.(0.5);
 
-    // store original position
+    // Store original hidden/offscreen position for reset after each cycle
     this.romanStart = {
       x: appWidth / 2,
       y: appHeight + 200,
@@ -31,9 +32,7 @@ export class RomanBeerController {
 
     this.stage.addChild(this.roman);
 
-    // -------------------
-    // ROMAN MASK
-    // -------------------
+    // Create mask to hide roman outside visible area
     this.romanMask = new PIXI.Graphics();
     this.romanMask.beginFill(0xffffff);
     this.romanMask.drawRect(0, 0, appWidth, 314);
@@ -41,12 +40,9 @@ export class RomanBeerController {
 
     this.stage.addChild(this.romanMask);
 
-    // apply ONLY to roman
     this.roman.mask = this.romanMask;
 
-    // -------------------
-    // BEER
-    // -------------------
+    // Create falling beer sprite
     this.beer = PIXI.Sprite.from(ASSETS.sprites.bere);
     this.beer.anchor?.set?.(0.5);
     this.beer.visible = false;
@@ -54,6 +50,9 @@ export class RomanBeerController {
     this.stage.addChild(this.beer);
   }
 
+  /**
+   * Starts a new gameplay cycle.
+   */
   startCycle() {
     if (this.active) return;
     if (!this.app.stage) return;
@@ -62,15 +61,24 @@ export class RomanBeerController {
     this.spawnRoman();
   }
 
+  /**
+   * Returns a random X position
+   * for roman spawn movement.
+   */
   getRandomRomanX() {
     return appWidth / 2 + RandomUtils.range(-150, 150);
   }
 
+  /**
+   * Animates roman into view.
+   */
   spawnRoman() {
     this.roman.y = 450;
     this.roman.x = this.getRandomRomanX();
+    // Random facing direction
     this.roman.scale.x = RandomUtils.sign();
 
+    // Animate roman upward
     this.anim.to(this.roman, {
       y: 280,
       duration: 1,
@@ -78,6 +86,10 @@ export class RomanBeerController {
     });
   }
 
+  /**
+   * Creates and positions the beer
+   * below the roman character.
+   */
   spawnBeer() {
     this.beer.visible = true;
     // this.beer.alpha = 0.5;
@@ -88,21 +100,33 @@ export class RomanBeerController {
     this.dropBeer();
   }
 
+  /**
+   * Animates beer falling downward.
+   */
   dropBeer() {
     this.anim.to(this.beer, {
       y: appHeight + 100,
       duration: 1.2,
+      // Check collision while beer falls
       onUpdate: () => this.checkCollision(),
+      // End cycle if beer missed
       onComplete: () => this.endCycle(false),
     });
   }
 
+  /**
+   * Checks collision between
+   * beer and DAC player.
+   */
   checkCollision() {
     if (CollisionUtils.hit(this.beer, this.dac)) {
       this.endCycle(true);
     }
   }
 
+  /**
+   * Ends current gameplay cycle.
+   */
   endCycle(caught) {
     if (!this.active) return;
 
@@ -120,6 +144,10 @@ export class RomanBeerController {
     this.onCycleEnd?.(caught);
   }
 
+  /**
+   * Briefly swaps DAC sprite
+   * to create catch feedback effect.
+   */
   flashCatch() {
     const dac1 = this.dac.children[0];
     const dac2 = this.dac.children[1];
@@ -128,7 +156,7 @@ export class RomanBeerController {
     dac2.visible = true;
 
     this.anim.to(dac2, {
-      x: dac2.x, // dummy animation (we just use timing)
+      x: dac2.x,
       duration: 1,
       onComplete: () => {
         dac2.visible = false;
@@ -137,6 +165,10 @@ export class RomanBeerController {
     });
   }
 
+  /**
+   * Animates roman back offscreen
+   * after cycle ends.
+   */
   resetRoman() {
     this.anim.to(this.roman, {
       x: this.getRandomRomanX(),

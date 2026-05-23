@@ -1,8 +1,12 @@
 export class SoundManager {
   constructor() {
+    // Stores all loaded sounds by name
     this.sounds = new Map();
   }
 
+  /**
+   * Loads and registers a sound.
+   */
   async load(name, path, options = {}) {
     const sound = new Audio(path);
 
@@ -15,6 +19,9 @@ export class SoundManager {
     return sound;
   }
 
+  /**
+   * Plays a sound by name.
+   */
   async play(name) {
     const sound = this.sounds.get(name);
 
@@ -29,6 +36,10 @@ export class SoundManager {
     }
   }
 
+  /**
+   * Stops a specific sound
+   * and resets playback position.
+   */
   stop(name) {
     const sound = this.sounds.get(name);
 
@@ -38,6 +49,9 @@ export class SoundManager {
     sound.currentTime = 0;
   }
 
+  /**
+   * Stops all registered sounds.
+   */
   stopAll() {
     this.sounds.forEach((sound) => {
       sound.pause();
@@ -45,6 +59,10 @@ export class SoundManager {
     });
   }
 
+  /**
+   * Cleans up all sounds
+   * and clears memory references.
+   */
   destroy() {
     this.stopAll();
     this.sounds.clear();

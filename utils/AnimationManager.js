@@ -3,9 +3,10 @@ export class AnimationManager {
     this.app = app;
   }
 
-  // -----------------------
-  // PULSE (you already have)
-  // -----------------------
+  /**
+   * Creates a continuous pulse animation
+   * by scaling the target object up and down.
+   */
   pulse(target, { min = 0.8, max = 1, speed = 0.05 } = {}) {
     let t = 0;
 
@@ -24,9 +25,9 @@ export class AnimationManager {
     this.app.ticker.add(tick);
   }
 
-  // -----------------------
-  // TWEEN (NEW)
-  // -----------------------
+  /**
+   * Animates object position over time.
+   */
   to(target, { x, y, duration = 1, onUpdate, onComplete } = {}) {
     const startX = target.x;
     const startY = target.y;

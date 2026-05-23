@@ -4,16 +4,25 @@ export class AnalyticsManager {
     this.interval = null;
   }
 
+  /**
+   * Starts analytics session
+   * and heartbeat tracking.
+   */
   start() {
     if (this.interval) return;
 
     this.send("session_start");
 
+    // Send heartbeat event every 7 seconds
     this.interval = setInterval(() => {
       this.send("heartbeat");
     }, 7000);
   }
 
+  /**
+   * Stops analytics session
+   * and clears heartbeat tracking.
+   */
   stop() {
     if (this.interval) {
       clearInterval(this.interval);
@@ -27,11 +36,13 @@ export class AnalyticsManager {
     this.send(event, data);
   }
 
+  /**
+   * Sends analytics payload.
+   */
   send(event, data = {}) {
     if (!this.enabled) return;
 
-    //replaced with console log so i wont have console errors when testing analytics without a backend
-    console.log("Analytics event:", event, data);
+    // console.log("Analytics event:", event, data);
     // fetch("https://my-api.com/analytics", {
     //   method: "POST",
     //   headers: {
