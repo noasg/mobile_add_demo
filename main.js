@@ -1,4 +1,4 @@
-import { Game } from "./Game.js";
+import { game } from "./game.js";
 
 import { createApp } from "./utils/createApp.js";
 
